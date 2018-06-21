@@ -1,0 +1,34 @@
+syntax = "proto2";
+message Article {
+  required int32 article_id = 1;
+  optional string article_excerpt = 2;
+  repeated string article_picture = 3;
+  optional int32  article_pagecount = 4 [default = 0];
+  enum ArticleType {
+    NOVEL = 0;
+    PROSE = 1;
+    PAPER = 2;
+    POETRY = 3;
+  }
+  optional ArticleType article_type = 5 [default = NOVEL];
+  message Author {
+    required string name = 1; //作者的名字
+    optional string phone = 2;
+  }
+  optional Author author = 6;
+  repeated int32 article_numberofwords = 7 [packed=true];
+  reserved  9, 10, 12 to 15;
+  extensions 100 to 1000;
+}
+extend Article {
+  optional int32 followers_count = 101;
+  optional int32 likes_count= 102;
+}
+message Other {
+  optional string other_info = 1;
+  oneof test_oneof {
+    string code1 = 2;
+    string code2 = 3;
+  }
+}
+
